@@ -28,12 +28,14 @@ const selectArticle = (article: HelpArticle) => {
   emit('select', article);
   isSearchOpen.value = false;
 };
+
+const assetUrl = (path: string) => `${import.meta.env.BASE_URL}${path}`;
 </script>
 
 <template>
   <header class="relative overflow-hidden bg-midnight">
     <img
-      src="/brand/startbet-sports-hero.svg"
+      :src="assetUrl('brand/startbet-sports-hero.svg')"
       alt=""
       class="absolute inset-0 h-full w-full object-cover opacity-70"
       aria-hidden="true"

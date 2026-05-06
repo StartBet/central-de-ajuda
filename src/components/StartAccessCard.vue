@@ -1,3 +1,7 @@
+<script setup lang="ts">
+const assetUrl = (path: string) => `${import.meta.env.BASE_URL}${path}`;
+</script>
+
 <template>
   <section aria-labelledby="start-access-title" class="mt-8">
     <div
@@ -6,7 +10,12 @@
       <div class="p-6">
         <div class="flex min-w-0 flex-col gap-5 sm:flex-row sm:items-center">
           <div class="flex h-32 w-full shrink-0 items-center justify-center overflow-hidden rounded-lg border border-[#A474F5] bg-[#6C3CAD] p-4 sm:w-56">
-            <img src="/brand/start-access-card.png" alt="" class="h-full w-full object-contain" aria-hidden="true" />
+            <img
+              :src="assetUrl('brand/start-access-card.png')"
+              alt=""
+              class="h-full w-full object-contain"
+              aria-hidden="true"
+            />
           </div>
 
           <div class="min-w-0 pr-8">

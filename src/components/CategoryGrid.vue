@@ -10,13 +10,15 @@ const emit = defineEmits<{
   select: [categoryId: string];
 }>();
 
+const assetUrl = (path: string) => `${import.meta.env.BASE_URL}${path}`;
+
 const categoryImages: Record<HelpCategory['id'], string> = {
-  depositos: '/brand/topic-depositos.png',
-  saques: '/brand/topic-saques.png',
-  'conta-login': '/brand/topic-conta-login.png',
-  seguranca: '/brand/topic-seguranca.png',
-  bonus: '/brand/topic-bonus.png',
-  apostas: '/brand/topic-apostas.png',
+  depositos: 'brand/topic-depositos.png',
+  saques: 'brand/topic-saques.png',
+  'conta-login': 'brand/topic-conta-login.png',
+  seguranca: 'brand/topic-seguranca.png',
+  bonus: 'brand/topic-bonus.png',
+  apostas: 'brand/topic-apostas.png',
 };
 </script>
 
@@ -103,7 +105,7 @@ const categoryImages: Record<HelpCategory['id'], string> = {
             aria-hidden="true"
           >
             <img
-              :src="categoryImages[category.id]"
+              :src="assetUrl(categoryImages[category.id])"
               alt=""
               class="h-full w-full object-contain"
             />
