@@ -1,3 +1,51 @@
+<script setup lang="ts">
+import { ref } from 'vue';
+
+declare global {
+  interface Window {
+    zE?: (...args: unknown[]) => void;
+  }
+}
+
+const zendeskSnippetId = 'ze-snippet';
+const zendeskSnippetUrl =
+  'https://static.zdassets.com/ekr/snippet.js?key=05f7e9c0-797b-4df7-9b07-5d976d554662';
+
+const isChatLoading = ref(false);
+
+const openZendeskChat = () => {
+  if (window.zE) {
+    window.zE('messenger', 'open');
+    return;
+  }
+
+  const existingSnippet = document.getElementById(zendeskSnippetId);
+
+  isChatLoading.value = true;
+
+  if (existingSnippet) {
+    existingSnippet.addEventListener('load', () => {
+      window.zE?.('messenger', 'open');
+      isChatLoading.value = false;
+    }, { once: true });
+    return;
+  }
+
+  const snippet = document.createElement('script');
+  snippet.id = zendeskSnippetId;
+  snippet.src = zendeskSnippetUrl;
+  snippet.async = true;
+  snippet.addEventListener('load', () => {
+    window.zE?.('messenger', 'open');
+    isChatLoading.value = false;
+  });
+  snippet.addEventListener('error', () => {
+    isChatLoading.value = false;
+  });
+  document.head.appendChild(snippet);
+};
+</script>
+
 <template>
   <footer class="border-t border-gold/15 bg-midnight-2">
     <section class="mx-auto max-w-xl px-5 py-14 text-center">
@@ -9,12 +57,14 @@
         Fale com a gente. Nosso time ajuda voc&ecirc; a resolver sem complicar.
       </p>
       <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
-        <a
-          href="https://start.bet.br/sportsbook/Football/Brazil"
+        <button
+          type="button"
           class="inline-flex h-12 items-center justify-center rounded-xl border border-[#4d217a] bg-[#fea900] px-8 text-sm font-black uppercase text-[#270644] shadow-[inset_0_5px_0_0_#ffd04e,inset_-5px_-5px_0_0_#ef6507] transition hover:translate-y-0.5 hover:bg-[#ffb51f] focus:outline-none focus:ring-4 focus:ring-gold/25"
+          :disabled="isChatLoading"
+          @click="openZendeskChat"
         >
-          Abrir chat
-        </a>
+          {{ isChatLoading ? 'Abrindo...' : 'Abrir chat' }}
+        </button>
         <a
           href="#articles-title"
           class="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-[#51238c] pl-5 pr-6 text-sm font-black uppercase text-sand transition hover:bg-[#6030a0] focus:outline-none focus:ring-4 focus:ring-gold/15"
