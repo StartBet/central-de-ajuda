@@ -6,6 +6,7 @@ import CategoryGrid from './components/CategoryGrid.vue';
 import FaqAccordion from './components/FaqAccordion.vue';
 import HelpHeader from './components/HelpHeader.vue';
 import SidebarNav from './components/SidebarNav.vue';
+import SiteHeader from './components/SiteHeader.vue';
 import StartAccessCard from './components/StartAccessCard.vue';
 import SupportCta from './components/SupportCta.vue';
 import { articles, categories, faqs } from './data/helpContent';
@@ -56,6 +57,8 @@ watch(
 
 <template>
   <div class="min-h-screen bg-midnight text-ink">
+    <SiteHeader />
+
     <HelpHeader
       v-model:query="query"
       :result-count="allSearchResultCount"
