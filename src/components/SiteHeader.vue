@@ -19,10 +19,10 @@ const extraNavItems = [
 ];
 
 const navItems = [
-  { label: 'Esporte', href: sportsUrl },
-  { label: 'Ao Vivo', href: liveSportsUrl },
-  { label: 'Cassino', href: casinoUrl },
-  { label: 'Cassino ao vivo', href: liveCasinoUrl },
+  { label: 'Esporte', href: sportsUrl, icon: 'sports' },
+  { label: 'Ao Vivo', href: liveSportsUrl, icon: 'live' },
+  { label: 'Cassino', href: casinoUrl, icon: 'casino' },
+  { label: 'Cassino ao vivo', href: liveCasinoUrl, icon: 'live-casino' },
 ];
 
 const shortcutItems = [
@@ -33,6 +33,14 @@ const shortcutItems = [
 const mobileNav = ref<HTMLElement | null>(null);
 const canScrollBack = ref(false);
 const canScrollForward = ref(true);
+const isDesktopMenuOpen = ref(false);
+
+const sideMenuItems = [
+  ...navItems,
+  { label: 'Promoções', href: promotionsUrl, icon: 'gift' },
+  { ...extraNavItems[0], icon: 'blog' },
+  { ...extraNavItems[1], icon: 'club' },
+];
 
 const updateMobileNavScrollState = () => {
   const nav = mobileNav.value;
@@ -50,6 +58,10 @@ const scrollMobileNav = (direction: 'back' | 'forward') => {
     left: Math.max(220, window.innerWidth * 0.6) * (direction === 'forward' ? 1 : -1),
     behavior: 'smooth',
   });
+};
+
+const closeDesktopMenu = () => {
+  isDesktopMenuOpen.value = false;
 };
 </script>
 
@@ -148,7 +160,22 @@ const scrollMobileNav = (direction: 'back' | 'forward') => {
       </div>
     </div>
 
-    <div class="mx-auto hidden min-h-[74px] max-w-[1440px] items-center gap-7 px-8 py-3 lg:flex">
+    <div class="mx-auto hidden min-h-[74px] max-w-[1440px] grid-cols-[1fr_auto_1fr] items-center gap-8 px-8 py-3 lg:grid">
+      <div class="flex min-w-0 items-center gap-5">
+        <button
+          type="button"
+          class="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-md text-[#7fdd24] transition hover:bg-[#3f136d] focus:outline-none focus:ring-4 focus:ring-[#7fdd24]/20"
+          aria-label="Abrir menu principal"
+          :aria-expanded="isDesktopMenuOpen"
+          @click="isDesktopMenuOpen = true"
+        >
+          <svg class="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 6h16" />
+            <path d="M4 12h16" />
+            <path d="M4 18h16" />
+          </svg>
+        </button>
+
       <a
         :href="sportsUrl"
         target="_blank"
@@ -159,71 +186,33 @@ const scrollMobileNav = (direction: 'back' | 'forward') => {
         <img
           :src="assetUrl('brand/startbet-logo.png')"
           alt="StartBet"
-          class="h-8 w-auto sm:h-10"
+          class="h-10 w-auto"
         />
       </a>
+      </div>
 
-      <nav class="flex min-w-0 flex-1 items-center gap-7 overflow-visible pb-0 text-base font-bold text-[#f5f0de]">
-        <a
-          v-for="item in navItems"
-          :key="item.label"
-          :href="item.href"
-          target="_blank"
-          rel="noreferrer"
-          class="shrink-0 rounded-md transition hover:text-[#7fdd24] focus:outline-none focus:ring-4 focus:ring-[#7fdd24]/20"
-        >
-          {{ item.label }}
-        </a>
-        <div class="group relative shrink-0">
-          <button
-            type="button"
-            class="inline-flex items-center gap-1 rounded-md font-extrabold transition hover:text-[#7fdd24] focus:outline-none focus:ring-4 focus:ring-[#7fdd24]/20"
-            aria-label="Abrir opções extras"
-          >
-            +2
-            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="m6 9 6 6 6-6" />
-            </svg>
-          </button>
-
-          <div class="invisible absolute left-0 top-[calc(100%+0.75rem)] min-w-44 rounded-lg border border-[#7fdd24]/25 bg-[#3f136d] p-2 opacity-0 shadow-panel transition group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
-            <a
-              v-for="item in extraNavItems"
-              :key="item.label"
-              :href="item.href"
-              target="_blank"
-              rel="noreferrer"
-              class="block rounded-md px-3 py-2 text-sm font-extrabold text-[#f5f0de] transition hover:bg-[#51238c] hover:text-[#7fdd24] focus:bg-[#51238c] focus:text-[#7fdd24] focus:outline-none"
-            >
-              {{ item.label }}
-            </a>
-          </div>
-        </div>
-      </nav>
+      <a
+        :href="promotionsUrl"
+        target="_blank"
+        rel="noreferrer"
+        class="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-[#f5f0de] px-6 text-sm font-black uppercase text-[#51238c] transition hover:bg-white focus:outline-none focus:ring-4 focus:ring-[#7fdd24]/25"
+      >
+        <svg class="h-5 w-5 text-[#7fdd24]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M20 12v10H4V12" />
+          <path d="M2 7h20v5H2z" />
+          <path d="M12 22V7" />
+          <path d="M12 7H7.5a2.5 2.5 0 1 1 2.1-3.86C10.7 4.82 12 7 12 7Z" />
+          <path d="M12 7h4.5a2.5 2.5 0 1 0-2.1-3.86C13.3 4.82 12 7 12 7Z" />
+        </svg>
+        Promoções
+      </a>
 
       <div class="ml-auto flex shrink-0 items-center gap-3">
-        <a
-          :href="promotionsUrl"
-          target="_blank"
-          rel="noreferrer"
-          class="relative inline-flex h-12 w-12 items-center justify-center rounded-md bg-[#3f136d] text-[#f5f0de] transition hover:bg-[#51238c] hover:text-[#7fdd24] focus:outline-none focus:ring-4 focus:ring-[#7fdd24]/20"
-          aria-label="Promoções no site principal"
-        >
-          <span class="absolute right-2 top-2 h-3 w-3 rounded-full bg-[#7fdd24]" aria-hidden="true" />
-          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M20 12v10H4V12" />
-            <path d="M2 7h20v5H2z" />
-            <path d="M12 22V7" />
-            <path d="M12 7H7.5a2.5 2.5 0 1 1 2.1-3.86C10.7 4.82 12 7 12 7Z" />
-            <path d="M12 7h4.5a2.5 2.5 0 1 0-2.1-3.86C13.3 4.82 12 7 12 7Z" />
-          </svg>
-        </a>
-
         <a
           :href="loginUrl"
           target="_blank"
           rel="noreferrer"
-          class="inline-flex rounded-md px-3 py-3 text-sm font-extrabold text-[#7fdd24] transition hover:text-[#f5f0de] focus:outline-none focus:ring-4 focus:ring-[#7fdd24]/20"
+          class="inline-flex min-h-12 items-center justify-center rounded-full bg-[#f5f0de] px-6 text-base font-extrabold text-[#51238c] transition hover:bg-white focus:outline-none focus:ring-4 focus:ring-[#7fdd24]/20"
         >
           Entrar
         </a>
@@ -232,11 +221,106 @@ const scrollMobileNav = (direction: 'back' | 'forward') => {
           :href="signupUrl"
           target="_blank"
           rel="noreferrer"
-          class="inline-flex min-h-12 items-center justify-center rounded-lg border border-[#df7000] bg-[#fea900] px-5 text-base font-extrabold text-[#270644] shadow-[inset_0_3px_0_0_#ffd04e,inset_-3px_-3px_0_0_#ef6507] transition hover:translate-y-0.5 hover:bg-[#ffb51f] focus:outline-none focus:ring-4 focus:ring-[#7fdd24]/25"
+          class="inline-flex min-h-12 items-center justify-center rounded-full bg-[#7fdd24] px-6 text-base font-extrabold text-[#51238c] transition hover:bg-[#8dff1f] focus:outline-none focus:ring-4 focus:ring-[#7fdd24]/25"
         >
           Cadastrar
         </a>
       </div>
+    </div>
+
+    <div v-if="isDesktopMenuOpen" class="fixed inset-0 z-[60] hidden lg:block" role="dialog" aria-modal="true" aria-label="Menu principal">
+      <button
+        type="button"
+        class="absolute inset-0 h-full w-full bg-black/45"
+        aria-label="Fechar menu"
+        @click="closeDesktopMenu"
+      />
+
+      <aside class="relative flex h-full w-full max-w-sm flex-col border-r border-[#7fdd24]/20 bg-[#270644] p-6 shadow-panel">
+        <div class="flex items-center justify-between gap-4">
+          <img
+            :src="assetUrl('brand/startbet-logo.png')"
+            alt="StartBet"
+            class="h-9 w-auto"
+          />
+          <button
+            type="button"
+            class="inline-flex h-10 w-10 items-center justify-center rounded-md text-[#7fdd24] transition hover:bg-[#3f136d] focus:outline-none focus:ring-4 focus:ring-[#7fdd24]/20"
+            aria-label="Fechar menu"
+            @click="closeDesktopMenu"
+          >
+            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M18 6 6 18" />
+              <path d="m6 6 12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <nav class="mt-8 grid gap-3">
+          <a
+            v-for="item in sideMenuItems"
+            :key="item.label"
+            :href="item.href"
+            target="_blank"
+            rel="noreferrer"
+            class="flex items-center gap-3 rounded-lg border border-[#7fdd24]/20 bg-[#3f136d] px-4 py-3 text-base font-extrabold text-[#f5f0de] transition hover:border-[#7fdd24] hover:text-[#7fdd24] focus:outline-none focus:ring-4 focus:ring-[#7fdd24]/20"
+            @click="closeDesktopMenu"
+          >
+            <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-[#270644] text-[#7fdd24]">
+              <svg v-if="item.icon === 'sports'" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" />
+                <path d="m8 4 4 4 4-4" />
+                <path d="m8 20 4-4 4 4" />
+                <path d="M3 12h6" />
+                <path d="M15 12h6" />
+              </svg>
+              <svg v-else-if="item.icon === 'live'" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m13 2-8 12h7l-1 8 8-12h-7z" />
+              </svg>
+              <svg v-else-if="item.icon === 'casino'" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="4" y="5" width="12" height="16" rx="2" transform="rotate(-8 4 5)" />
+                <path d="M10 10h.01" />
+                <path d="M12 15h.01" />
+                <path d="M16 8h.01" />
+              </svg>
+              <svg v-else-if="item.icon === 'live-casino'" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="5" width="18" height="14" rx="2" />
+                <path d="M8 13h8" />
+                <path d="M12 9v8" />
+                <path d="m8 9 4 4 4-4" />
+              </svg>
+              <svg v-else-if="item.icon === 'gift'" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20 12v10H4V12" />
+                <path d="M2 7h20v5H2z" />
+                <path d="M12 22V7" />
+                <path d="M12 7H7.5a2.5 2.5 0 1 1 2.1-3.86C10.7 4.82 12 7 12 7Z" />
+                <path d="M12 7h4.5a2.5 2.5 0 1 0-2.1-3.86C13.3 4.82 12 7 12 7Z" />
+              </svg>
+              <svg v-else-if="item.icon === 'blog'" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M4 19.5V4a2 2 0 0 1 2-2h12v20H6a2 2 0 0 1-2-2.5Z" />
+                <path d="M8 7h6" />
+                <path d="M8 11h7" />
+                <path d="M8 15h4" />
+              </svg>
+              <svg v-else class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M8 21h8" />
+                <path d="M12 17v4" />
+                <path d="M7 4h10v5a5 5 0 0 1-10 0z" />
+                <path d="M5 6H3a3 3 0 0 0 3 3h1" />
+                <path d="M19 6h2a3 3 0 0 1-3 3h-1" />
+              </svg>
+            </span>
+            <span>{{ item.label }}</span>
+          </a>
+        </nav>
+
+        <div class="mt-auto rounded-lg border border-[#7fdd24]/20 bg-[#3f136d] p-4">
+          <p class="text-xs font-black uppercase tracking-[0.16em] text-[#7fdd24]">StartBet</p>
+          <p class="mt-2 text-sm font-semibold leading-6 text-[#f5f0de]/80">
+            Continue navegando pelo site principal, promoções, cassino e Club Start.
+          </p>
+        </div>
+      </aside>
     </div>
   </header>
 </template>
