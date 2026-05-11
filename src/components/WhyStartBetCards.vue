@@ -52,11 +52,21 @@ const cards = [
       </h2>
     </div>
 
-    <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
+    <div class="mb-3 flex items-center justify-end gap-2 text-xs font-black uppercase tracking-[0.12em] text-[#b8ef7d] sm:hidden">
+      <span>Arraste para ver mais</span>
+      <svg class="h-4 w-4 animate-pulse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M5 12h14" />
+        <path d="m13 6 6 6-6 6" />
+      </svg>
+    </div>
+
+    <div class="relative">
+      <div class="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-[#270644] to-transparent sm:hidden" />
+      <div class="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 pr-10 [scrollbar-width:none] sm:grid sm:overflow-visible sm:pb-0 sm:pr-0 sm:snap-none sm:grid-cols-2 xl:grid-cols-5 [&::-webkit-scrollbar]:hidden">
       <article
         v-for="card in cards"
         :key="card.title"
-        class="group overflow-hidden rounded-lg border border-[#7fdd24]/10 bg-[#3f136d] shadow-[0_18px_38px_rgba(0,0,0,0.34),0_1px_0_rgba(255,255,255,0.08)_inset] transition hover:-translate-y-0.5 hover:border-[#7fdd24]/30 hover:bg-[#51238c] hover:shadow-[0_24px_48px_rgba(0,0,0,0.42),0_1px_0_rgba(255,255,255,0.1)_inset]"
+        class="group w-[78vw] max-w-[300px] shrink-0 snap-start overflow-hidden rounded-lg border border-[#7fdd24]/10 bg-[#3f136d] shadow-[0_18px_38px_rgba(0,0,0,0.34),0_1px_0_rgba(255,255,255,0.08)_inset] transition hover:-translate-y-0.5 hover:border-[#7fdd24]/30 hover:bg-[#51238c] hover:shadow-[0_24px_48px_rgba(0,0,0,0.42),0_1px_0_rgba(255,255,255,0.1)_inset] sm:w-auto sm:max-w-none"
       >
         <div class="relative aspect-[4/3] overflow-hidden bg-[#270644]">
           <img
@@ -72,6 +82,7 @@ const cards = [
           <p class="mt-2 text-sm font-semibold leading-5 text-[#f5f0de]/75">{{ card.description }}</p>
         </div>
       </article>
+      </div>
     </div>
   </section>
 </template>

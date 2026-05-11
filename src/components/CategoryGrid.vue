@@ -36,12 +36,22 @@ const categoryImages: Record<HelpCategory['id'], string> = {
       </h2>
     </div>
 
-    <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+    <div class="mb-3 flex items-center justify-end gap-2 text-xs font-black uppercase tracking-[0.12em] text-gold-soft md:hidden">
+      <span>Arraste para ver mais</span>
+      <svg class="h-4 w-4 animate-pulse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M5 12h14" />
+        <path d="m13 6 6 6-6 6" />
+      </svg>
+    </div>
+
+    <div class="relative">
+      <div class="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-midnight to-transparent md:hidden" />
+      <div class="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 pr-10 [scrollbar-width:none] md:grid md:overflow-visible md:pb-0 md:pr-0 md:snap-none md:grid-cols-2 xl:grid-cols-3 [&::-webkit-scrollbar]:hidden">
       <button
         v-for="category in categories"
         :key="category.id"
         type="button"
-        class="group relative min-h-48 overflow-hidden rounded-lg border p-6 text-left transition hover:-translate-y-0.5 focus:outline-none focus:ring-4 focus:ring-gold/15"
+        class="group relative min-h-48 w-[82vw] max-w-[340px] shrink-0 snap-start overflow-hidden rounded-lg border p-5 text-left transition hover:-translate-y-0.5 focus:outline-none focus:ring-4 focus:ring-gold/15 sm:w-[46vw] md:w-auto md:max-w-none md:p-6"
         :class="[
           'border-[#7fdd24]/10 bg-[#3f136d] shadow-[0_18px_38px_rgba(0,0,0,0.34),0_1px_0_rgba(255,255,255,0.08)_inset] hover:border-[#7fdd24]/30 hover:bg-[#51238c] hover:shadow-[0_24px_48px_rgba(0,0,0,0.42),0_1px_0_rgba(255,255,255,0.1)_inset]',
           selectedCategoryId === category.id ? 'ring-4 ring-[#7fdd24]/20' : '',
@@ -65,6 +75,7 @@ const categoryImages: Record<HelpCategory['id'], string> = {
           </div>
         </div>
       </button>
+      </div>
     </div>
   </section>
 </template>
