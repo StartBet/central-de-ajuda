@@ -88,12 +88,45 @@ const closeDesktopMenu = () => {
             <path d="M79.2187 0H61.0515L83.8662 22.8193L61.0515 45.6384H79.2187L93.5838 31.2709C98.2313 26.6225 98.2313 19.016 93.5838 14.3677L79.2187 0Z" fill="#7FDD24" />
           </svg>
         </a>
+
+        <div class="ml-auto flex items-center gap-2">
+          <a
+            :href="promotionsUrl"
+            target="_blank"
+            rel="noreferrer"
+            class="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-[#7fdd24]/25 bg-[#3f136d] text-[#7fdd24] transition hover:border-[#7fdd24] hover:bg-[#51238c] focus:outline-none focus:ring-4 focus:ring-[#7fdd24]/20"
+            aria-label="Ir para promoções"
+          >
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 12v10H4V12" />
+              <path d="M2 7h20v5H2z" />
+              <path d="M12 22V7" />
+              <path d="M12 7H7.5a2.5 2.5 0 1 1 2.1-3.86C10.7 4.82 12 7 12 7Z" />
+              <path d="M12 7h4.5a2.5 2.5 0 1 0-2.1-3.86C13.3 4.82 12 7 12 7Z" />
+            </svg>
+          </a>
+
+          <a
+            :href="extraNavItems[0].href"
+            target="_blank"
+            rel="noreferrer"
+            class="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-[#7fdd24]/25 bg-[#3f136d] text-[#f5f0de] transition hover:border-[#7fdd24] hover:bg-[#51238c] hover:text-[#7fdd24] focus:outline-none focus:ring-4 focus:ring-[#7fdd24]/20"
+            aria-label="Ir para o blog"
+          >
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 19.5V4a2 2 0 0 1 2-2h12v20H6a2 2 0 0 1-2-2.5Z" />
+              <path d="M8 7h6" />
+              <path d="M8 11h7" />
+              <path d="M8 15h4" />
+            </svg>
+          </a>
+        </div>
       </div>
 
       <div class="relative border-t border-[#51238c]">
         <nav
           ref="mobileNav"
-          class="flex items-center gap-5 overflow-x-auto px-4 py-3 pr-20 text-[15px] font-black text-[#f5f0de] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          class="flex items-center gap-3 overflow-x-auto px-4 py-3 pr-20 text-[15px] font-black text-[#f5f0de] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           @scroll="updateMobileNavScrollState"
         >
           <a
@@ -102,9 +135,33 @@ const closeDesktopMenu = () => {
             :href="item.href"
             target="_blank"
             rel="noreferrer"
-            class="shrink-0 rounded-md transition hover:text-[#7fdd24] focus:outline-none focus:ring-4 focus:ring-[#7fdd24]/20 first:min-w-[82px] [&:nth-child(2)]:min-w-[152px] [&:nth-child(3)]:min-w-[94px]"
+            class="inline-flex shrink-0 items-center gap-2 rounded-md px-1 transition hover:text-[#7fdd24] focus:outline-none focus:ring-4 focus:ring-[#7fdd24]/20"
           >
-            {{ item.label }}
+            <span class="flex h-5 w-5 shrink-0 items-center justify-center text-[#7fdd24]" aria-hidden="true">
+              <svg v-if="item.icon === 'sports'" class="h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9" />
+                <path d="m8 4 4 4 4-4" />
+                <path d="m8 20 4-4 4 4" />
+                <path d="M3 12h6" />
+                <path d="M15 12h6" />
+              </svg>
+              <svg v-else-if="item.icon === 'live'" class="h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m13 2-8 12h7l-1 8 8-12h-7z" />
+              </svg>
+              <svg v-else-if="item.icon === 'casino'" class="h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="5" width="12" height="16" rx="2" transform="rotate(-8 4 5)" />
+                <path d="M10 10h.01" />
+                <path d="M12 15h.01" />
+                <path d="M16 8h.01" />
+              </svg>
+              <svg v-else class="h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="5" width="18" height="14" rx="2" />
+                <path d="M8 13h8" />
+                <path d="M12 9v8" />
+                <path d="m8 9 4 4 4-4" />
+              </svg>
+            </span>
+            <span>{{ item.label }}</span>
           </a>
         </nav>
         <button
@@ -236,7 +293,7 @@ const closeDesktopMenu = () => {
         @click="closeDesktopMenu"
       />
 
-      <aside class="relative flex h-full w-full max-w-sm flex-col border-r border-[#7fdd24]/20 bg-[#270644] p-6 shadow-panel">
+      <aside class="relative flex h-full min-h-0 w-full max-w-[300px] flex-col bg-[#270644] px-6 py-5 shadow-panel">
         <div class="flex items-center justify-between gap-4">
           <img
             :src="assetUrl('brand/startbet-logo.png')"
@@ -245,7 +302,7 @@ const closeDesktopMenu = () => {
           />
           <button
             type="button"
-            class="inline-flex h-10 w-10 items-center justify-center rounded-md text-[#7fdd24] transition hover:bg-[#3f136d] focus:outline-none focus:ring-4 focus:ring-[#7fdd24]/20"
+            class="inline-flex h-10 w-10 items-center justify-center rounded-md text-[#7fdd24] transition hover:bg-white/10 focus:outline-none focus:ring-4 focus:ring-[#7fdd24]/20"
             aria-label="Fechar menu"
             @click="closeDesktopMenu"
           >
@@ -256,17 +313,17 @@ const closeDesktopMenu = () => {
           </button>
         </div>
 
-        <nav class="mt-8 grid gap-3">
+        <nav class="mt-8 grid min-h-0 flex-1 content-start gap-4 overflow-y-auto pb-4 pr-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <a
             v-for="item in sideMenuItems"
             :key="item.label"
             :href="item.href"
             target="_blank"
             rel="noreferrer"
-            class="flex items-center gap-3 rounded-lg border border-[#7fdd24]/20 bg-[#3f136d] px-4 py-3 text-base font-extrabold text-[#f5f0de] transition hover:border-[#7fdd24] hover:text-[#7fdd24] focus:outline-none focus:ring-4 focus:ring-[#7fdd24]/20"
+            class="group flex min-h-11 items-center gap-4 rounded-md px-0 py-1 text-lg font-extrabold text-white transition hover:text-[#7fdd24] focus:outline-none focus:ring-4 focus:ring-[#7fdd24]/20"
             @click="closeDesktopMenu"
           >
-            <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-[#270644] text-[#7fdd24]">
+            <span class="flex h-9 w-9 shrink-0 items-center justify-center text-white transition group-hover:text-[#7fdd24]">
               <svg v-if="item.icon === 'sports'" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <circle cx="12" cy="12" r="9" />
                 <path d="m8 4 4 4 4-4" />
@@ -314,7 +371,7 @@ const closeDesktopMenu = () => {
           </a>
         </nav>
 
-        <div class="mt-auto rounded-lg border border-[#7fdd24]/20 bg-[#3f136d] p-4">
+        <div class="mt-6 shrink-0 rounded-md border border-[#7fdd24]/20 bg-[#3f136d] p-4">
           <p class="text-xs font-black uppercase tracking-[0.16em] text-[#7fdd24]">StartBet</p>
           <p class="mt-2 text-sm font-semibold leading-6 text-[#f5f0de]/80">
             Continue navegando pelo site principal, promoções, cassino e Club Start.

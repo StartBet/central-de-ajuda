@@ -115,7 +115,7 @@ const openZendeskChat = () => {
           </p>
         </div>
 
-        <div class="flex items-center justify-between gap-5 bg-[#f5f0de] px-5 pb-5 md:justify-center md:px-7 md:py-0">
+        <div class="flex items-center justify-center gap-5 bg-[#f5f0de] px-5 pb-5 md:px-7 md:py-0">
           <div class="relative flex h-[86px] w-[113px] shrink-0 items-center justify-center" aria-label="18 anos ou mais">
             <svg
               class="absolute inset-0 h-full w-full"

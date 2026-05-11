@@ -33,15 +33,15 @@ const assetUrl = (path: string) => `${import.meta.env.BASE_URL}${path}`;
 </script>
 
 <template>
-  <header class="relative overflow-hidden bg-midnight">
+  <header class="relative z-10 overflow-visible bg-midnight">
     <img
       :src="assetUrl('brand/startbet-sports-hero.svg')"
       alt=""
-      class="absolute inset-0 h-full w-full object-cover opacity-70"
+      class="absolute inset-0 z-0 h-full w-full object-cover opacity-70"
       aria-hidden="true"
     />
-    <div class="absolute inset-0 bg-gradient-to-r from-midnight via-midnight/90 to-midnight/35" />
-    <div class="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-gold via-gold-soft to-gold" />
+    <div class="absolute inset-0 z-0 bg-gradient-to-r from-midnight via-midnight/90 to-midnight/35" />
+    <div class="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-2 bg-gradient-to-r from-gold via-gold-soft to-gold" />
 
     <div class="relative mx-auto max-w-7xl px-5 py-10 sm:px-8 md:py-16 lg:px-10">
       <section class="max-w-3xl">
@@ -103,7 +103,7 @@ const assetUrl = (path: string) => `${import.meta.env.BASE_URL}${path}`;
 
           <div
             v-if="isSearchOpen"
-            class="absolute left-0 right-0 top-[calc(100%+0.75rem)] z-20 overflow-hidden rounded-lg border border-gold/25 bg-midnight-2 shadow-panel"
+            class="absolute left-0 right-0 top-[calc(100%+0.75rem)] z-50 overflow-hidden rounded-lg border border-gold/25 bg-midnight-2 shadow-panel"
             @mousedown.prevent
           >
             <div class="border-b border-gold/15 px-4 py-3">

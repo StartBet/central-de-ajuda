@@ -9,6 +9,7 @@ import SidebarNav from './components/SidebarNav.vue';
 import SiteHeader from './components/SiteHeader.vue';
 import StartAccessCard from './components/StartAccessCard.vue';
 import SupportCta from './components/SupportCta.vue';
+import WhyStartBetCards from './components/WhyStartBetCards.vue';
 import { articles, categories, faqs } from './data/helpContent';
 import { searchArticles } from './utils/search';
 
@@ -95,6 +96,10 @@ watch(
 
       <div class="mt-10">
         <FaqAccordion :faqs="filteredFaqs" />
+      </div>
+
+      <div class="mt-6">
+        <WhyStartBetCards />
       </div>
     </main>
 
