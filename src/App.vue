@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { computed, nextTick, ref, watch } from 'vue';
 import ArticleList from './components/ArticleList.vue';
 import ArticleViewer from './components/ArticleViewer.vue';
 import CategoryGrid from './components/CategoryGrid.vue';
@@ -40,6 +40,16 @@ const selectCategory = (categoryId: string) => {
   selectedCategoryId.value = categoryId;
 };
 
+const selectTopicCategory = async (categoryId: string) => {
+  selectCategory(categoryId);
+  await nextTick();
+
+  document.getElementById('articles-title')?.scrollIntoView({
+    behavior: 'smooth',
+    block: 'start',
+  });
+};
+
 const selectSearchResult = (articleId: string, categoryId: string) => {
   selectedCategoryId.value = categoryId;
   selectedArticleId.value = articleId;
@@ -72,7 +82,7 @@ watch(
       <CategoryGrid
         :categories="categories"
         :selected-category-id="selectedCategoryId"
-        @select="selectCategory"
+        @select="selectTopicCategory"
       />
 
       <StartAccessCard />

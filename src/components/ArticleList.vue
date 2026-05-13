@@ -16,7 +16,7 @@ const emit = defineEmits<{
     <div class="mb-4 flex flex-wrap items-end justify-between gap-3">
       <div>
         <p class="text-sm font-black uppercase tracking-[0.16em] text-gold-soft">Artigos</p>
-        <h2 id="articles-title" class="font-display mt-1 text-4xl font-black uppercase tracking-normal text-sand">
+        <h2 id="articles-title" class="font-display mt-1 scroll-mt-32 text-4xl font-black uppercase tracking-normal text-sand">
           Respostas rápidas
         </h2>
       </div>
